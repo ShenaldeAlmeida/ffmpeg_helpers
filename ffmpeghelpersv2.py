@@ -1,3 +1,7 @@
+"""
+Version with dynamic property list and normalise function
+"""
+
 import ffmpeg
 import json
 import os
@@ -78,6 +82,10 @@ def vidprop(video_path: str, properties: List[str] = standard_properties) -> Dic
 
 print(vidprop("LOL.mp4"))
 
+
+'''
+suggested changes - add schema, keep integers as integers such as file_size 
+'''
 
 
 
