@@ -109,10 +109,10 @@ def standardise_video(
     has_audio = any([prop["codec_type"] == "audio" for prop in probe["streams"]])
     audioarg = {"acodec" : "aac"} if has_audio else {}
 
-    # scale to fit inside width x height, preserving aspect ratio
+    #scale to fit inside width x height, preserving aspect ratio
     scale_filter = f"scale=w={width}:h={height}:force_original_aspect_ratio=decrease"
 
-# pad to exactly width x height if needed
+    #pad to exactly width x height if needed
     pad_filter = f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2"
     
     #takes only the filename root not the ext (eg.mov)
@@ -153,5 +153,24 @@ def standardise_video(
 # .filter('scale', 'min(iw*720/ih\,1280)', 'min(ih*1280/iw\,720)')
 
 
+"""
+Goals:
+Reduce resolution to increase processing speed 
+Maintain aspect ratio to avoid detection and tracking on squished images which we can then not overlay 
+Want standardised resolution for ease of cloud processing
 
+Now if we have a standard input that is fine eg 1280x720p all
+Assume we do not,
+
+our current program reduces the resolution, keeping the aspect ratio then using padding to keep the standard we define 
+issue is that the coordinate overlay will not line up with the original if any resolution changes occur, can use maths to maybe nullify
+
+we encode all inputs so some quality is always lost even if input is standard
+
+Note no overwriting and has not been proofed by CHAT
+
+
+Configuration with yolov8
+
+"""
  
